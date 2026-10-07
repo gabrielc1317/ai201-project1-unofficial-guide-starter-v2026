@@ -329,13 +329,15 @@ The answer includes both the source filename and a direct quotation from the sup
      low, and which one you'd tighten and to what.
 
      Milestone 3. -->
+     There were no misses, other then a revision to the wording of a criterion (#4) to make it quantifiable. The criteria for all were met in all 5 run flawlessly, surpassing the set 4 out of 5 correct answers in the criteria. One thing I noted that though the correct source was cited in all 5 questions, several lower-ranked results were unrelated in the the current top-k of 5, where 5 chunks are retrieved, this generates unrelated context and information, I think that 5 may be too much for this corpus so I'd tighten this to 3.
 
 ## The Improvement
 
 **What I changed:**
+I changed the TOP_K of retrieval from 5 to 3.
 
 **Why I picked it:**
-
+Alot of questions could be answered by 1 chunk, and maybe reinforced by information from 1 or 2 other chunks. By retrieving 5 chunks, there was alot of extra unnescary context the system was ingesting that was just not needed for the task/question, especially for the way the documents are in this corpus. By reducing to 3, i think it narrows the amount of context to ingest while not limiting the system.
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
 
@@ -346,12 +348,11 @@ The answer includes both the source filename and a direct quotation from the sup
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
-
+| 1. Retrieved chunks contain the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Revised: sampled chunks are independently useful | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Every answer provides a direct quotation | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 **Did it help?**
 
 <!-- Say plainly whether it did, and how you know. If it made things worse,
@@ -360,6 +361,7 @@ The answer includes both the source filename and a direct quotation from the sup
      tell.
 
      Milestone 4. -->
+This did help, not only did it reduce the amount of chunks used per answer while still meeting all critieria, it reduced the amount of tokens used from 10,116 to 7,324 across the same 15 calls, thats a 24% decrease in token usage for the same task.
 
 ## What's Still Broken
 
@@ -370,10 +372,14 @@ The answer includes both the source filename and a direct quotation from the sup
      not.
 
      Milestone 5. -->
-
+None of my criteria remains missed after my improvement.
 ## What I'd Do Differently
 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
      Milestone 5. -->
+I would tighten criterion 1, I stated that I wanted 4/5 of the questions to retrieve a chunk that contains an answer. With this type of corpus I now think that it should have been stricter to something less forgiving, say a 90%/95% (9/10 or 19/20) acceptance criteria, as a student the last thing you want is the AI advisor giving you incorrect information so I think logically aswell for this system, it should be tighter, I'm not sure if 99%/100% is also a good alternative because there are only 88 documents, and students can have thousands of different specific questions.
+
+## How I used ai (unit 2 version)
+After changing TOP_k=5 to Top_k=3, I reviewed the output of the 15 calls checking if all criteria were still met and comparing distances from before and after. I used AI to aggregate all of it to create the UI friendly table for the README, but one thing the AI was able to note that I did not was the fact that the amount of tokens decreased from the original run to this new one. I checked back in the terminal and verified that infact the token usage decreased from 10,116 to 7,324 across the same 15 calls. 
