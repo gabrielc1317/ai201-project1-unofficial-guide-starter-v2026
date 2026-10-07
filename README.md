@@ -20,6 +20,7 @@
 # Unit 1
 
 ## What This Does
+I chose the campus_life corpus for this system, this system answers various questions a student who attends/lives at this specific university may have. From the corpus there are 88 documents, which are in the form of posts provided a mix of admin and students. It provides information about courses, workload and expectations, and information regarding situations students may be faced by and gives an understanding of the systems in place at the university regarding topics like enrollement, courses, housing, food, housing, etc. The system refuses to answer questions that ask about topics that are not regarded in any of the documents in the corpus, which is denoted by a cutoff distance of 0.6. Documents are chunked by paragraphs and a max of 450 characters, this allows the chunks to be independent and useful on its own. Each answer provides atleast 1 source document and a direct quotation supporting the answer to keep each answer ad determinstic and grounded as possible.
 
 <!-- Three or four sentences. Which corpus you picked, and the kinds of
      questions your system answers. Write it for someone who has never seen
@@ -115,15 +116,19 @@ without reading what came before or after?
 <!-- One complete question and answer, pasted as text, with the source line
      visible. Milestone 4. -->
 
-**Question:**
+**Question: How many hours should I expect to commit to taking Data Structures every week?**
 
 **Answer:**
 
 ```
+Based on course_cs_210_workload.txt, you should expect to spend 8 to 10 hours a week outside of class. The document states, "People keep asking so: 8 to 10 hours a week outside class."
+
+Sources retrieved: course_cs_210_workload.txt, course_cs_340.txt, course_cs_340_workload.txt, course_engl_205_workload.txt, course_stat_150_workload.txt
+
 ```
 
-**My relevance cutoff:**
-
+**My relevance cutoff: 0.6**
+There is a clean gap betweeen in scope and out of scope questions, highest in corpus distance being 0.4424 while lowest out of corpus distance being 0.8246, this leaves a median of roughly 6.34.
 <!-- The number you set in config.py, and how you got there.
 
      You ran five questions your corpus covers and the five in OUT_OF_SCOPE
@@ -132,10 +137,19 @@ without reading what came before or after?
      here — the table below wants all ten rows.
 
      Milestone 4. -->
-
 | Question | In corpus? | Best distance |
-|---|---|---|
-|  |  |  |
+|---|---|---:|
+| Is withdrawing from a course the same as dropping it? | Yes | 0.4424 |
+| I have 12 courses that are outside of my major I have to take. Can I do Pass/Fail for all of them? | Yes | 0.3504 |
+| Will my dining dollars from spring transfer to fall classes? | Yes | 0.3213 |
+| How many hours should I expect to commit to taking Data Structures every week? | Yes | 0.3602 |
+| How often does the campus shuttle come on weekdays? | Yes | 0.4396 |
+| What is the capital of Mongolia? | No | 0.8246 |
+| How do I change the oil in a diesel engine? | No | 0.9340 |
+| Who won the 1994 World Cup? | No | 0.8859 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.8442 |
+| How do I write a for loop in Rust? | No | 0.8960 |
+
 
 ## How I Used AI
 
@@ -149,8 +163,10 @@ without reading what came before or after?
      Milestone 5. -->
 
 **1.**
+When running the distances for the 5 in corpus questions and 5 out of corpus questions, i found it a bit tedious to run every single one, I asked the ai to build a quick function that i could paste in terminal to run all 10 of them and print the output neatly so that I can then read it.
 
 **2.**
+For milestone 4, i needed to put the questions and their distances in a table, from terminal they are in line form. I used AI to aggregate all of that and formulate it into the table format requested for this assignment neatly, while keeping all information unchanged. I checked from terminal to the table that was passted so I could verify that nothing was changed from terminal copy to AI output/reformat.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
