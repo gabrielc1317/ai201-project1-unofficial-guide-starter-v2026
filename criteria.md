@@ -23,8 +23,7 @@ For at least 4 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
-<!-- e.g. "One of my questions is about a topic only two documents mention, so
-     I expect that one to be hard." -->
+For the corpus I chose (Campus_life). the documents are straight foward and many documents reinforce eachother, in a way establishing more concrete information to be retrieved. A minimum 80% success rate I feel is appropiate for this type of corpus
 
 ---
 
@@ -33,8 +32,7 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
-<!-- Why all five and not four? What about your setup makes that achievable —
-     or what would have to go wrong for it not to be? -->
+Answers should be determinstic and grounded in concrete evidence, to avoid any type of AI hallucination, there should be atleast one source document per answer, so that each answer can be reviewed by the objective data that it presents along with its answer (source document).
 
 ---
 
@@ -50,6 +48,10 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
+The documents in this corpus are realtively short and straightforward, when an out of scope question is inputted, 
+I feel atleast 80% of the time it should be able to reject the question citing not enough information available. 
+it could be complicated for it to 100% of the time reject every out of scope question, but 3 out of 5 is it a bit 
+too forgiving for a system like this with this type of corpus.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
@@ -68,29 +70,35 @@ in at least 4 of 5 tries.
           sentence cut in half at either end."
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
-
-
+Chunks should contain enough context/information to be useful on its own. Chunks should be able to reinforce eachother
+when there is overlapping information in the same context.
 
 **Why this target:**
-
+Most documents are very short, there were 88 documents and 88 chunks as a result with an average of 317 characters. 
+Since most documents are straightforward, Each chunk should be informative on its own rather then depending on another chunk
+for extra context. In my practice question, one chunk had enough info to answer the question, and a few other chunks
+were retrieved that independently reinforced the answer.
 
 
 ---
 
-## 5. Your choice
+## 5. Your choice (Answer provides direct verifiable evidence)
 
 <!-- YOU WRITE THIS ONE TOO.
+
 
      Pick something you actually care about getting right. It could be about
      speed, about refusals, about a particular kind of question your corpus
      handles badly, about source attribution being correct rather than merely
      present — anything, as long as it names a number or an observable
      outcome. -->
-
+Eachh answer should provide a direct quotation (practically short) from the provided source chunk(s) that shows 
+where the answer came from.
 
 
 **Why this target:**
-
+To make the answering as determinstic as possible, i feel it is neccesary to provide a direct quotation in the answer
+from the provided source chunk(s), that shows exactly what information from the source was used to conjour the answer.
 
 
 ---
