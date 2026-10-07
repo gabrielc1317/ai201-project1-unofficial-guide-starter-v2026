@@ -192,18 +192,103 @@ For milestone 4, i needed to put the questions and their distances in a table, f
      the same number goes in all three run columns. That's correct, not lazy.
 
      Milestone 1. -->
+## Run Log — Before
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1| Retrieved chunks contain the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2| Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3| Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4| Revised: sampled chunks are independently useful | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5| Every answer provides a direct quotation | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+### Real Output — Criterion 1
+
+**Produced by:** `run_eval.py::main` using `store.py::search`
+
+Question: `How many hours should I expect to commit to taking Data Structures every week?`
+
+Best distance: `0.3602`
+
+Sources retrieved:
+`course_cs_210_workload.txt`, `course_cs_340.txt`, `course_cs_340_workload.txt`, `course_engl_205_workload.txt`, `course_stat_150_workload.txt`
+
+Output:
+
+> Based on `course_cs_210_workload.txt`, you should expect to commit 8 to 10 hours a week outside of class. The document states, "8 to 10 hours a week outside class."
+
+The retrieved results included `course_cs_210_workload.txt`, which contained the information needed to answer the question.
+
+---
+
+### Real Output — Criterion 2
+
+**Produced by:** `run_eval.py::main` using `generate.py`
+
+Question: `Will my dining dollars from spring transfer to fall classes?`
+
+Output:
+
+> Based on `admin_dining_dollars.txt`, dining dollars do not roll over from the spring semester to the following autumn. The document states, "Whatever is left in May disappears."
+
+The answer explicitly names `admin_dining_dollars.txt` as its source.
+
+---
+
+### Real Output — Criterion 3
+
+**Produced by:** `run_eval.py::check_out_of_scope`
+
+Cutoff: `0.6`
+
+```
+What is the capital of Mongolia?                         0.825  refused
+How do I change the oil in a diesel engine?             0.934  refused
+Who won the 1994 World Cup?                             0.886  refused
+What is the recommended dosage of ibuprofen for a headache?  0.844  refused
+How do I write a for loop in Rust?                      0.896  refused
+```
+
+The relevance gate refused `5 of 5` out-of-corpus questions.
+
+---
+
+### Real Output — Criterion 4
+
+**Produced by:** `chunker.py::split_documents`
+
+One of the sampled chunks:
+
+```
+source: housing_morrow_house.txt#1
+
+Laundry costs $1.50 wash, $1.25 dry, coin or card. On noise: loud until about 1am on weekends, no enforced quiet hours.
+```
+
+This chunk can independently answer specific questions about laundry cost, payment method, or noise without needing the previous or following chunk.
+
+I reviewed five sampled chunks and found `5 of 5` independently useful under the revised criterion.
+
+---
+
+### Real Output — Criterion 5
+
+**Produced by:** `run_eval.py::main` using `generate.py`
+
+Question: `Is withdrawing from a course the same as dropping it?`
+
+Output:
+
+> No, withdrawing from a course is not the same as dropping it; they are different processes with different dates.
+
+> This information comes from `admin_withdrawal_deadline.txt`, which states: "Withdrawal is a different thing from dropping and has a different date."
+
+The answer includes both the source filename and a direct quotation from the supporting document.
 
 ## Verdicts
 
@@ -216,13 +301,14 @@ For milestone 4, i needed to put the questions and their distances in a table, f
 
      Milestone 2. -->
 
-| # | Criterion | Verdict | How I decided |
-|---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+
+| Criterion | Verdict  | How I decided |
+|---|---|---|---|---|---|
+| 1 | Retrieved chunks contain the answer | MET | all 3 runs came out 5/5 for correct answer
+| 2| Every answer names a source | MET | all 3 runs named a source for each asnwer
+| 3| Gate stops out-of-corpus questions | MET | all 3 runs rejected all 5 out of corpus questions.
+| 4| Revised: sampled chunks are independently useful | MET | all 3 runs provided 5 chunks that could answer a definitive question
+| 5| Every answer provides a direct quotation | MET | all 3 runs provided a direct quote for each answer.
 
 ## Diagnoses
 

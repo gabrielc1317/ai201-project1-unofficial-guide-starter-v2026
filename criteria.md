@@ -79,6 +79,13 @@ Since most documents are straightforward, Each chunk should be informative on it
 for extra context. In my practice question, one chunk had enough info to answer the question, and a few other chunks
 were retrieved that independently reinforced the answer.
 
+ **Revised in unit 2:** Atleast 4 out of 5 sampled chunks should contain enough information to answer a specific question
+ on its own without requiring the chunk around it.
+         
+         **Why revised:** My first critierion was what I wanted from my chunks, but it did not define how many chunks 
+         should meet that standard, it wasn't a quantifiable criterion, so I couldn't give it a met or missed verdict.
+         this new version keeps the same standard but makes it quantifiable and testable.
+
 
 ---
 
